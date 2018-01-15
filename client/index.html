@@ -1,0 +1,157 @@
+<html>
+<head>
+	<title>Exonum first wallet</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="../../../exonum/client/exonum-client/dist/exonum-client.min.js"></script>
+
+<script>
+var SendFunds = Exonum.newMessage({
+    size: 72,
+    network_id: 0,
+    protocol_version: 0,
+    service_id: 0,
+    message_id: 0,
+    fields: {
+        from: {type: Exonum.Hash, size: 32, from: 0, to: 32},
+        to: {type: Exonum.Hash, size: 32, from: 32, to: 64},
+        amount: {type: Exonum.Uint64, size: 8, from: 64, to: 72}
+    }
+});
+
+var CreateWallet = Exonum.newMessage({
+	signature: {type: Exonum.ash, size: 32, from: 0, to: 64},
+    network_id: 0,
+    protocol_version: 0,
+    service_id: 1,
+    message_id: 1,
+    body: {
+        pub_key: {type: Exonum.Hash, size: 32, from: 0, to: 32}
+        
+    }
+});
+
+var CreateWMesg = {
+	signature: "ad5efdb52e48309df9aa582e67372bb3ae67828c5eaa1a7a5e387597174055d315eaa7879912d0509acf17f06a23b7f13f242017b354f682d85930fa28240402",
+    network_id: 0,
+    protocol_version: 0,
+    service_id: 1,
+    message_id: 1,
+    body: {
+        pub_key: "03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472",
+    	name: "Johnny Doe"
+        
+    }
+};
+
+var SendFMesg = {
+	body: {
+    from: "03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472",
+    to: "d1e877472a4585d515b13f52ae7bfded1ccea511816d7772cb17e1ab20830819",
+    amount: "20",
+    seed: "12623766328194547469"
+  },
+  network_id: 0,
+  protocol_version: 0,
+  service_id: 1,
+  message_id: 2,
+  signature: "2c5e9eee1b526299770b3677ffd0d727f693ee181540e1914f5a84801dfd410967fce4c22eda621701c2b9c676ed62bc48df9c973462a8514ffb32bec202f103"
+}
+
+function generateKey() {
+      console.log("Generate Key");
+    	document.getElementById('hash').innerHTML=Exonum.keyPair();
+    }
+
+    function countRabbits() {
+      for(var i=1; i<=3; i++) {
+        alert("Кролик номер " + i);
+      }
+    }
+
+    var data = {
+    	from: '03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472',
+    	to: 'd1e877472a4585d515b13f52ae7bfded1ccea511816d7772cb17e1ab20830819',
+    	amount: 20,
+    	seed: '13623766328194547469'
+	};   
+
+    var secretKey = '03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472' +
+ 				'fa7f9ee43aff70c879f80fa7fd15955c18b98c72310b09e7818310325050cf7a';
+	var signature = SendFunds.sign(secretKey, data);
+
+    function transferAsset() {
+    	//SendFMesg.signature = signature;
+ 		$.ajax({
+        	url: "http://localhost:8000/api/services/cryptocurrency/v1/wallets/transfer",
+        	method: "POST",
+        	dataType: 'json',
+        	
+        	data: JSON.stringify(SendFMesg),
+			headers: {
+				"Content-Type": "application/json"
+			}
+
+    	}).done(function( msg ) {
+    		alert( "Data Saved: " + msg );
+  		});    
+    
+    }  
+
+    function createWallet() {
+ 		$.ajax({
+        	url: "http://localhost:8000/api/services/cryptocurrency/v1/wallets",
+        	method: "POST",
+        	dataType: 'json',
+
+        	data: JSON.stringify(CreateWMesg),
+			success: function (data) {
+                $('#target').html(data.msg);
+            },
+			headers: {
+				"Content-Type": "application/json"
+			}
+
+    	}).done(function( msg ) {
+    		alert( "Data Saved: " + msg );
+  		});    
+    }
+
+function getWalletInfo() {
+    $.ajax({
+        url: "http://localhost:8000/api/services/cryptocurrency/v1/wallet/03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472",
+        method: "GET",
+        headers: {
+        	"Access-Control-Allow-Origin": "http://localhost:8000"
+        }
+    }).then(function(data) {
+    	console.log(data);
+       $('.wallet-id').html("Amount: " + data.balance);
+       $('.wallet-content').html("Name: " + data.name);
+       $('.wallet-pubkey').html("pub_key: " + data.pub_key);
+	});
+}
+</script>
+
+</head>
+<body>
+
+	<div id="hash"></div>
+
+
+	<div id="signature">Signature: </div>
+
+	<div>
+		<p>Wallet</p>
+            <p class="wallet-id">Amount: </p>
+            <p class="wallet-content">Name: </p>
+            <p class="wallet-pubkey">pub_key: </p>
+        </div>
+	<input type="button" onclick="transferAsset()" value="Transfer 20 token"/>
+	<p></p>
+	<input type="button" onclick="generateKey()" value="Generate Key"/>
+	<p></p>
+	<input type="button" onclick="createWallet()" value="Create Wallet"/>
+	<p></p>
+	<input type="button" onclick="getWalletInfo()" value="Refresh"/>
+</body>
+</html>
