@@ -1,6 +1,7 @@
 
-import java.awt.*;
+
 import javax.swing.*;
+
 
 /* FrameDemo.java requires no other files. */
 public class MainWindow {
@@ -11,12 +12,23 @@ public class MainWindow {
      */
     private static void createAndShowGUI() {
         //Create and set up the window.
-        JFrame frame = new JFrame("FrameDemo");
+        JFrame frame = new JFrame("Exonum Wallet");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setSize(800,600);
+        //JLabel emptyLabel = new JLabel("");
 
-        JLabel emptyLabel = new JLabel("");
-        emptyLabel.setPreferredSize(new Dimension(175, 100));
-        frame.getContentPane().add(emptyLabel, BorderLayout.CENTER);
+        JLabel l1,l2;
+        l1=new JLabel("Wallet.");
+        l1.setBounds(50,50, 100,30);
+        l2=new JLabel("Second Label.");
+        l2.setBounds(50,100, 100,30);
+
+
+        //emptyLabel.setPreferredSize(new Dimension(800, 600));
+        frame.add(l1); frame.add(l2);
+
+        frame.setLayout(null);
+
 
         //Display the window.
         frame.pack();
