@@ -3,16 +3,16 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class SendForm extends JFrame implements ActionListener  {
+public class SendTab extends JPanel implements ActionListener  {
 
     JLabel label1, label2, label3;
 
     JButton btnMultiply, btnClear; //btnPlus, btnMinus,
     JTextField txtField1, txtField2, txtField3;
 
-    public SendForm(){
+    public SendTab(){
         setLayout(new GridLayout(5,2));
-        setTitle("Simple Calculator using Swing");
+        //setTitle("Simple Calculator using Swing");
         //initializing label
         label1 = new JLabel("From pub key :",JLabel.RIGHT);
         label2 = new JLabel("To pub key :",JLabel.RIGHT);
