@@ -1,3 +1,5 @@
+import communication.PipeHttp;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -31,9 +33,9 @@ public class SendTab extends JPanel implements ActionListener  {
         btnClear.addActionListener(this);
         //initializing textfield
         //for(int i = 0; i < 3; i++)
-        txtField1 = new JTextField();
-        txtField2 = new JTextField();
-        txtField3 = new JTextField();
+        txtField1 = new JTextField("03e657ae71e51be60a45b4bd20bcf79ff52f0c037ae6da0540a0e0066132b472");
+        txtField2 = new JTextField("d1e877472a4585d515b13f52ae7bfded1ccea511816d7772cb17e1ab20830819");
+        txtField3 = new JTextField("10");
 
         //adding to the frame
         add(label1,0);
@@ -48,27 +50,9 @@ public class SendTab extends JPanel implements ActionListener  {
         add(btnClear);
     }//end of constructor
 
-
     //action listener method
     public void actionPerformed(ActionEvent event){
-        String opt = event.getActionCommand();
-        int num1, num2, num = 0;
-        num1 = Integer.parseInt(txtField1.getText());
-        num2 = Integer.parseInt(txtField2.getText());
-
-
-        if(opt.equals("+"))
-            num = num1 + num2;
-        else if(opt.equals("-"))
-            num = num1 - num2;
-        else if(opt.equals("*"))
-            num = num1 * num2;
-        else if(opt.equals("Send")){
-            txtField1.setText("");
-            txtField2.setText("");
-            txtField3.setText("");
-        }
-        txtField3.setText(Integer.toString(num));
-
+        PipeHttp pipeTcp = new PipeHttp();
+        pipeTcp.sendFunds(txtField1.getText(), txtField2.getText(), txtField3.getText());
     }
 }

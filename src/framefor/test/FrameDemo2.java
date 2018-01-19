@@ -265,8 +265,7 @@ public class FrameDemo2 extends WindowAdapter
     private static void createAndShowGUI() {
         //Use the Java look and feel.
         try {
-            UIManager.setLookAndFeel(
-                UIManager.getCrossPlatformLookAndFeelClassName());
+            UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
         } catch (Exception e) { }
 
         //Make sure we have nice window decorations.
@@ -282,10 +281,8 @@ public class FrameDemo2 extends WindowAdapter
 
         //Add components to it.
         Container contentPane = frame.getContentPane();
-        contentPane.add(demo.createOptionControls(),
-                        BorderLayout.CENTER);
-        contentPane.add(demo.createButtonPane(),
-                        BorderLayout.PAGE_END);
+        contentPane.add(demo.createOptionControls(), BorderLayout.CENTER);
+        contentPane.add(demo.createButtonPane(), BorderLayout.PAGE_END);
         frame.getRootPane().setDefaultButton(defaultButton);
 
         //Display the window.
