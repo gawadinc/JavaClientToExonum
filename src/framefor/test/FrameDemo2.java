@@ -1,4 +1,4 @@
-/*
+package framefor.test;/*
  * Copyright (c) 1995, 2008, Oracle and/or its affiliates. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -35,7 +35,7 @@ import java.awt.event.*;
 import java.awt.image.BufferedImage;
 
 /*
- * FrameDemo2.java shows off the window decoration features added in
+ * framefor.test.FrameDemo2.java shows off the window decoration features added in
  * 1.4, plus some window positioning code and (optionally)
  * setIconImage. It uses the file images/FD.jpg.
  */
@@ -274,7 +274,7 @@ public class FrameDemo2 extends WindowAdapter
         JDialog.setDefaultLookAndFeelDecorated(true);
 
         //Instantiate the controlling class.
-        JFrame frame = new JFrame("FrameDemo2");
+        JFrame frame = new JFrame("framefor.test.FrameDemo2");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         //Create and set up the content pane.

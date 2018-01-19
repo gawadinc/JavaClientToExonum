@@ -1,11 +1,10 @@
-
+package communication;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 //import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.entity.BasicHttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
@@ -13,7 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
-public class PipeTcp {
+public class PipeHttp {
 
 public void send () throws IOException {
     String url = "http://localhost:8000/api/services/cryptocurrency/v1/wallets/transfer";
@@ -83,7 +82,7 @@ public void send () throws IOException {
 
     public static void main(String[] args) {
         try {
-            PipeTcp pipeTcp = new PipeTcp();
+            PipeHttp pipeTcp = new PipeHttp();
             pipeTcp.send();
             pipeTcp.sendGet();
         } catch (IOException e) {
