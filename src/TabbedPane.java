@@ -11,13 +11,12 @@ public class TabbedPane extends JPanel {
 
         //JComponent panel1 = makeTextPanel("Panel #1");
         SendTab sendTab = new SendTab();
-        tabbedPane.addTab("Send Found", icon, sendTab,
-                "Does nothing");
+        tabbedPane.addTab("Send Found", icon, sendTab,"Send your found");
         tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 
-        JComponent panel2 = makeTextPanel("Panel #2");
-        tabbedPane.addTab("Tab 2", icon, panel2,
-                "Does twice as much nothing");
+        //JComponent panel2 = makeTextPanel("Create Wallet");
+        CreateWalletTab createWalletTab = new CreateWalletTab();
+        tabbedPane.addTab("Create Wallet", icon, createWalletTab,"Create own wallet");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
 
         JComponent panel3 = makeTextPanel("Panel #3");
